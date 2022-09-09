@@ -1,1 +1,0 @@
-Epoch		Train-loss		Test-loss		Train-IoU		Test-IoU		learningRate
