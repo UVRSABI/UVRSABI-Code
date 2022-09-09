@@ -82,9 +82,9 @@ cityscapes_trainIds2labelIds = Compose([
 
 def main(args):
 
-    modelpath = args.loadDir + args.loadModel
-    weightspath = args.loadDir + args.loadWeights
-
+    modelpath = args.loadModel
+    weightspath = os.path.join(args.loadDir,args.loadWeights)
+    # print(modelpath, weightspath)
     print ("Loading model: " + modelpath)
     print ("Loading weights: " + weightspath)
 
@@ -103,7 +103,7 @@ def main(args):
             if name not in own_state:
                  continue
             own_state[name].copy_(param)
-            print('Loaded param {}'.format(param))
+            # print('Loaded param {}'.format(param))
         # print('state dict: {}  own_state {}'.format(state_dict['state_dict'].keys(), own_state.keys()))
 
         return model
@@ -117,9 +117,10 @@ def main(args):
     if(not os.path.exists(args.datadir)):
         print ("Error: datadir could not be loaded")
 
+    # print(args.datadir)
     voc_transform = MyVOCTransform()#512)
     dataset = VOCSegmentation(args.datadir, image_set=args.subset, transforms=voc_transform)
-
+    # print(dataset)
     loader = DataLoader(dataset,
     num_workers=args.num_workers, batch_size=args.batch_size, shuffle=False)
 
@@ -135,6 +136,7 @@ def main(args):
     #     enumerator = (images, labels, filename, filename)
 
     for step, (images, filename) in enumerate(loader):
+        print(filename)
         filtered_Filename = str(filename)
         filtered_Filename = filtered_Filename[2:len(filtered_Filename)-3]
         # print('Filtered FileName {}'.format(filtered_Filename))
@@ -148,7 +150,7 @@ def main(args):
         with torch.no_grad():
             outputs = model(inputs)
 
-        # print('output shape:', outputs.shape)
+        print('output shape:', outputs.shape)
         # print('outputs:', outputs)
         # print('outputs[0].max(0) shape:', outputs[0].max(0))
         # print('outputs[0].max(0)[1] shape:', outputs[0].max(0)[1])
@@ -162,8 +164,9 @@ def main(args):
         label_color = Colorize()(label.unsqueeze(0))
 
         
-        filtered_Filename += ".png"   
-        filenameSave = "./save_color/" + args.subset + "/" + filtered_Filename
+        filtered_Filename += ".png"
+        os.makedirs(args.resultdir, exist_ok=True)
+        filenameSave = os.path.join(args.resultdir,filtered_Filename)
 
         os.makedirs(os.path.dirname(filenameSave), exist_ok=True)
         print('label shape: {} {}'.format(label.shape, type(label)))
@@ -174,7 +177,9 @@ def main(args):
         print('label unique {} and count {}'.format(unique, count))
 
         # label_save = ToPILImage()(label_color)
-        label_save = ToPILImage()(label.type(torch.uint8))              
+        label_save = ToPILImage()(label.type(torch.uint8))  
+        label_save = label_save.resize(dataset.ImageSize(step))
+        print(filenameSave)
         label_save.save(filenameSave)
 
         # save_image(label, filenameSave) 
@@ -195,8 +200,9 @@ if __name__ == '__main__':
 
 
     parser.add_argument('--loadDir',default="../save/logs/")
-    parser.add_argument('--loadWeights', default="model_best.pth")
+    parser.add_argument('--loadWeights', default="model_best.pth.tar")
     parser.add_argument('--loadModel', default="lednet.py")
+    parser.add_argument('--resultdir', default="./save_color")
     parser.add_argument('--subset', default="val")  #can be val, test, train, demoSequence
 
     parser.add_argument('--datadir', default=os.getenv("HOME") + "/datasets/cityscapes/")

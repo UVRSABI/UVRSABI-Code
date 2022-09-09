@@ -4,7 +4,7 @@ import time
 import numpy as np
 import torch
 import sys
-
+import pdb
 cur_path = os.path.abspath(os.path.dirname(__file__))
 root_path = os.path.split(cur_path)[0]
 sys.path.append(root_path)
@@ -167,7 +167,6 @@ class MyVOCTransformCopy(object):
 
 def train(args, model, enc=False):
     best_acc = 0
-
     #TODO: calculate weights by processing dataset histogram (now its being set by hand from the torch values)
     #create a loder to run all images and calculate histogram of labels, then create weight array using class balancing
 
@@ -219,6 +218,7 @@ def train(args, model, enc=False):
     # weight[19] = 0
 
     assert os.path.exists(args.datadir), "Error: datadir (dataset directory) could not be loaded"
+    # torch.cuda.empty_cache()
 
     voc_transform = MyVOCTransformCopy(enc, augment=True, height=args.height)#512)
     voc_transform_val = MyVOCTransformCopy(enc, augment=False, height=args.height)#512)
@@ -229,17 +229,16 @@ def train(args, model, enc=False):
     dataset_train = VOCSegmentation(args.datadir, image_set='train', transforms=voc_transform)
     dataset_val = VOCSegmentation(args.datadir, image_set='val', transforms=voc_transform_val)
     # '''
-
+    # print(dataset_train, dataset_val)
     loader = DataLoader(dataset_train, num_workers=args.num_workers, batch_size=args.batch_size, shuffle=True)
     loader_val = DataLoader(dataset_val, num_workers=args.num_workers, batch_size=args.batch_size, shuffle=False)
 
     if args.cuda:
         weight = weight.cuda()
     criterion = CrossEntropyLoss2d(weight)
-    print(type(criterion))
 
-    savedir = f'../save/{args.savedir}'
-
+    savedir = f"../save/{args.savedir}"
+    print(enc)
     if (enc):
         automated_log_path = savedir + "/automated_log_encoder.txt"
         modeltxtpath = savedir + "/model_encoder.txt"
@@ -302,11 +301,11 @@ def train(args, model, enc=False):
         for param_group in optimizer.param_groups:
             print("LEARNING RATE: ", param_group['lr'])
             usedLr = float(param_group['lr'])
-
         counter = 0
         model.train()
         for step, (images, labels) in enumerate(loader):
-
+            
+            
             start_time = time.time()
 
             imgs_batch = images.shape[0]
@@ -324,7 +323,7 @@ def train(args, model, enc=False):
 
             ## outputs: torch.Size([4, 2, 64, 114]) targets: torch.Size([4, 64, 114])
             #print("targets", np.unique(targets[:, 0].cpu().data.numpy()))
-
+            # pdb.set_trace()
             optimizer.zero_grad()
             
             '''
@@ -354,8 +353,10 @@ def train(args, model, enc=False):
             print('Tgt Min {} Max {}'.format(torch.min(targets[:,0]), torch.max(targets[:,0])))
             print('Output Min {} Max {}'.format(torch.min(outputs), torch.max(outputs)))
             '''
+            # print(outputs.shape)
+            # print(targets[:,0].shape)
             loss = criterion(outputs, targets[:, 0])    
-            
+            # torch.cuda.empty_cache()
             loss.backward()
             optimizer.step()
 

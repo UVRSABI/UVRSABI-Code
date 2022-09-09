@@ -164,7 +164,8 @@ class VOCSegmentation(VisionDataset):
         img_path = image_path(self.images_root, filename, '.jpg')
         if not os.path.exists(img_path):
             img_path = image_path(self.images_root, filename, '.JPG')
-        
+        if not os.path.exists(img_path):
+            img_path = image_path(self.images_root, filename, '.png')
         with open(img_path, 'rb') as f:
             image = load_image(f).convert('RGB')
 
@@ -189,3 +190,21 @@ class VOCSegmentation(VisionDataset):
 
     def __len__(self) -> int:
         return len(self.filenames)
+
+    def ImageSize(self, index: int) -> Tuple[int, int]:
+        """
+        Args:
+            index (int): Index
+
+        Returns:
+            tuple: (height, width) of the image.
+        """
+        filename = self.filenames[index]
+        img_path = image_path(self.images_root, filename, '.jpg')
+        if not os.path.exists(img_path):
+            img_path = image_path(self.images_root, filename, '.JPG')
+        if not os.path.exists(img_path):
+            img_path = image_path(self.images_root, filename, '.png')
+        with open(img_path, 'rb') as f:
+            img = load_image(f).convert('RGB')
+        return img.size
