@@ -1,15 +1,17 @@
-# Drone-based-building-assessment
-### Project - "Identification of salient structural elements from buildings using UAVs"
-The project aims to extract information such as planShape/Area, Storey and window count, their height and so on of the buildings from the camera feed through drone. It is a part of IHub - Mobility Research at IIIT Hyderabad.
+# UAV-based Visual Remote Sensing for Automated Building Inspection
+### Project: "Drone-based Infrastructure Assessment"
+This project aims at accurately detecting and estimating various parameters of a building by deploying an Unmanned Aerial Vehicle (UAV) based remote sensing system. It is a part of [IHub - Mobility Research](https://ihub-data.iiit.ac.in/mobility/) at [IIIT, Hyderabad](https://www.iiit.ac.in/).
 
-#### Objectives of Pilot Study:
-To identify salient structural elements in buildings from RGB images captured using a UAV.
-1) Number of windows
-2) Number of storeys
-3) Storey height (Uniform/varied storey heights)
-4) Building Plan estimation
+#### Objectives:
+To identify salient structural elements in buildings from RGB images captured using a UAV. For more information, please visit our [project page](https://uvrsabi.github.io/).
+<ol>
+<li> Building Plan-shape Estimation </li>
+<li> Roof Area Calculation </li>
+<li> Distance Between Adjacent Buildings </li>
+<li> Roof Layout Estimation </li>
+</ol>
 
-#### Dataset:
+<!-- #### Dataset:
 We have made our own custom dataset by capturing buildings on IIIT-H campus through a drone. In addition, we have also used the open-source zju_facade dataset to train our models. IIIT-H campus window dataset can be found [here](https://drive.google.com/drive/folders/1fxJP8x9y8I23DFWardhpMM5BZAUY4WtM?usp=sharing).
 
 <p>
@@ -130,14 +132,15 @@ Now, we estimate the area(in m²) from the contour Area of the segmented buildin
 -> Building level (flat or tilted ground)
 
 
-<br />
+<br /> -->
 
-### Project Team:
-Dhruv Patel - Project Associate, Robotics Research Centre(RRC), IIIT Hyderabad \
-Shivani Chepuri - MS Student, IIIT Hyderabad \
-Sarvesh Thakur - MEng Robotics, University of Maryland 
-
+<!-- ### Project Team:
+<ul>
+<li>Kushagra Srivastava - Research Assistant, RRC, IIIT Hyderabad </li>
+<li>Dhruv Patel - Research Assistant, (RRC), IIIT Hyderabad </li>
+<li>
+</ul>
 Advisors: \
 Prof. Madhava Krishna (Head & Professor, RRC, IIIT Hyderabad) \
 Dr. Harikumar Kandath (Assistant Professor, IIIT-Hyderabad) \
-Dr. Ravi Kiran Sarvadevabhatla (Assistant Professor, IIIT-Hyderabad)
+Dr. Ravi Kiran Sarvadevabhatla (Assistant Professor, IIIT-Hyderabad) -->
