@@ -3,13 +3,15 @@
 This project aims at accurately detecting and estimating various parameters of a building by deploying an Unmanned Aerial Vehicle (UAV) based remote sensing system. It is a part of [IHub - Mobility Research](https://ihub-data.iiit.ac.in/mobility/) at [IIIT, Hyderabad](https://www.iiit.ac.in/).
 
 #### Objectives:
-To identify salient structural elements in buildings from RGB images captured using a UAV. For more information, please visit our [project page](https://uvrsabi.github.io/).
+Through this project, we introduce the following parameters: 
 <ol>
 <li> Building Plan-shape Estimation </li>
 <li> Roof Area Calculation </li>
 <li> Distance Between Adjacent Buildings </li>
 <li> Roof Layout Estimation </li>
 </ol>
+
+For more information, please visit our [project page](https://uvrsabi.github.io/).
 
 #### Data Collection, Installation and Usage:
 For details regarding data collection, installation and using the software stack please visit the [documentation website](https://uvrsabi-instructions.readthedocs.io/en/latest/).
