@@ -11,6 +11,8 @@ To identify salient structural elements in buildings from RGB images captured us
 <li> Roof Layout Estimation </li>
 </ol>
 
+#### Data Collection, Installation and Usage:
+For details regarding data collection, installation and using the software stack please visit the [documentation website](https://uvrsabi-instructions.readthedocs.io/en/latest/).
 <!-- #### Dataset:
 We have made our own custom dataset by capturing buildings on IIIT-H campus through a drone. In addition, we have also used the open-source zju_facade dataset to train our models. IIIT-H campus window dataset can be found [here](https://drive.google.com/drive/folders/1fxJP8x9y8I23DFWardhpMM5BZAUY4WtM?usp=sharing).
 
