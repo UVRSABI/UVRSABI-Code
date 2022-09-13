@@ -1,0 +1,6 @@
+[submodule "RoofLayoutEstimation/Detic"]
+	path = RoofLayoutEstimation/Detic
+	url = https://github.com/facebookresearch/Detic.git
+[submodule "RoofLayoutEstimation/detectron2"]
+	path = RoofLayoutEstimation/detectron2
+	url = https://github.com/facebookresearch/detectron2.git

@@ -231,4 +231,4 @@ Height Info:
 # depth = UAV Height - 9
 
 
-get_area_from_mask(cv2.imread('.\\input_to_findArea\\gray_preprocessed_undistorted_avgPooling\\Nilgiri\\4.jpg'), depth, focalLength)
+get_area_from_mask(cv2.imread('./planShape/AreaCalculation/input_to_findArea/gray_preprocessed_undistorted_avgPooling/Nilgiri/4.jpg'), depth, focalLength)
