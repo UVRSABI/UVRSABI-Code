@@ -1,5 +1,3 @@
-import datetime
-import time
 from PyQt5 import QtGui, QtCore, QtWidgets
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
@@ -15,6 +13,8 @@ import subprocess
 # client = docker.from_env()
 line = ""
 mutex = QMutex()
+videopath = ""
+logpath = ""
 class DisplayFinalResults(QWidget):
 
   def __init__(self, mode):
@@ -138,7 +138,9 @@ class DisplayResults(QScrollArea):
         self.timer_intermediate.timeout.connect(self.ShowIntermediateResults)
         self.timer_intermediate.start(1000)
 
-        self.p=subprocess.Popen("./"+self.mode+'.sh', shell=True)
+        global videopath
+        global logpath
+        self.p=subprocess.Popen("./"+self.mode+'.sh %s %s' %(videopath, logpath), shell=True)
     
 
     def ShowIntermediateResults(self):
