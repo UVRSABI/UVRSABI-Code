@@ -5,13 +5,10 @@ cd RoofLayoutEstimation
 results_path=../RoofLayoutEstimationResults
 LOG=$results_path/log.txt
 exec > >(tee $LOG)
-echo "Downloading the dataset"
-# gdown 1v3qJkcBVAczAL5Sdb2HebaW_Thy90bcq
-echo "Done!"
 
 echo "Extracting images from the video"
 rm -rf images
-python ../utils/VideoToImage.py --video DJI_0641.MP4 --savedir images
+python ../utils/VideoToImage.py --video $1 --savedir images
 echo "Done!"
 touch $results_path/out.log
 echo "Estimating the roof masks"
