@@ -12,10 +12,13 @@ python ../utils/VideoToImage.py --video $1 --savedir images
 echo "Done!"
 touch $results_path/out.log
 echo "Estimating the roof masks"
+cd LEDNet/save/logs
+gdown 1E-FLi3byKxCcfKAGfqWAkp7Li4poKdKO
+cd ../../..
 cd LEDNet/test
 chmod 777 test.py
-# rm -rf RoofMasks
-# python test.py --datadir ../../images --resultdir ../../RoofMasks >> ../../$results_path/out.log
+rm -rf RoofMasks
+python test.py --datadir ../../images --resultdir ../../RoofMasks >> ../../$results_path/out.log
 cd ../../
 echo "Done!"
 
@@ -25,11 +28,12 @@ python saveroofmaskresults.py -i images -r RoofMasks -s $results_path/intermedia
 echo "Done!"
 
 echo "Estimating the NSE Masks"
-# rm -rf ObjectMasks
-# mkdir ObjectMasks
+rm -rf ObjectMasks
+mkdir ObjectMasks
 cd Detic
+gdown 1RS2a1V-Gm2c4j7PbR9qg_xdzI1ohj6lz
 chmod 777 demo.py
-# python demo.py --config-file configs/Detic_LCOCOI21k_CLIP_SwinB_896b32_4x_ft4x_max-size.yaml --input ../images/*.png --output ../ObjectMasks --vocabulary custom --custom_vocabulary solar_array,air_conditioner,vent,box,sink --confidence-threshold 0.5 --opts MODEL.WEIGHTS Detic_LCOCOI21k_CLIP_SwinB_896b32_4x_ft4x_max-size.pth >> ../$results_path/out.log
+python demo.py --config-file configs/Detic_LCOCOI21k_CLIP_SwinB_896b32_4x_ft4x_max-size.yaml --input ../images/*.png --output ../ObjectMasks --vocabulary custom --custom_vocabulary solar_array,air_conditioner,vent,box,sink --confidence-threshold 0.5 --opts MODEL.WEIGHTS Detic_LCOCOI21k_CLIP_SwinB_896b32_4x_ft4x_max-size.pth >> ../$results_path/out.log
 cd ..
 echo "Done!"
 
