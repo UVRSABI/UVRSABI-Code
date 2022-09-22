@@ -76,8 +76,8 @@ def main(args):
 
     for step, (images, filename) in enumerate(loader):
         print_progress_bar(step, len(loader)-1, 'Image: '+ str(filename[0])+'.png')
-        filtered_Filename = str(filename)
-        filtered_Filename = filtered_Filename[2:len(filtered_Filename)-3]
+        filtered_Filename = dataset.FileName(step)
+        # filtered_Filename = filtered_Filename[2:len(filtered_Filename)-3]
         if (not args.cpu):
             images = images.cuda()
 
@@ -87,7 +87,7 @@ def main(args):
 
 
         label = outputs[0].max(0)[1].byte().cpu().data
-        filtered_Filename += ".png"
+        # filtered_Filename += ".png"
         os.makedirs(args.resultdir, exist_ok=True)
         filenameSave = os.path.join(args.resultdir,filtered_Filename)
 

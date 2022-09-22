@@ -91,6 +91,8 @@ class VOCSegmentation(VisionDataset):
 
         img_path = image_path(self.images_root, filename, '.png')
         if not os.path.exists(img_path):
+            img_path = image_path(self.images_root, filename, '.jpg')
+        if not os.path.exists(img_path):
             img_path = image_path(self.images_root, filename, '.png')
         
         with open(img_path, 'rb') as f:
@@ -116,8 +118,27 @@ class VOCSegmentation(VisionDataset):
         filename = self.filenames[index]
         img_path = image_path(self.images_root, filename, '.png')
         if not os.path.exists(img_path):
-            img_path = image_path(self.images_root, filename, '.png')
+            img_path = image_path(self.images_root, filename, '.jpg')
+        if not os.path.exists(img_path):
+            img_path = image_path(self.images_root, filename, '.JPG')
         img = Image.open(img_path).convert('RGB')
         return img.size
+    def FileName(self, index: int) -> str:
+        """
+        Args:
+            index (int): Index
+
+        Returns:
+            str: filename of the image.
+        """
+        filename = self.filenames[index]
+
+        img_path = image_path(self.images_root, filename, '.png')
+        if not os.path.exists(img_path):
+            img_path = image_path(self.images_root, filename, '.jpg')
+        if not os.path.exists(img_path):
+            img_path = image_path(self.images_root, filename, '.JPG')
+
+        return img_path.split('/')[-1]
     def __len__(self) -> int:
         return len(self.filenames)

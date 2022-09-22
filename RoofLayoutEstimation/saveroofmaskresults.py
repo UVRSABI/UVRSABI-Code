@@ -8,9 +8,9 @@ import time
 
 def SaveResult(image_path, roof_mask_path, save_path):
 
-    image = cv2.imread(os.path.join("images", image_path))
+    image = cv2.imread(os.path.join(opt.image_folder, image_path))
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-    roof_mask = cv2.imread(os.path.join("RoofMasks", roof_mask_path))
+    roof_mask = cv2.imread(os.path.join(opt.roof_mask_folder, roof_mask_path))
     roof_mask = cv2.cvtColor(roof_mask, cv2.COLOR_BGR2RGB)
 
     fig, ax = plt.subplots(1, 2)
@@ -32,6 +32,7 @@ if __name__ == '__main__':
     opt = parser.parse_args()
 
     images = os.listdir(opt.image_folder)
+    print(images)
     roof_masks = os.listdir(opt.roof_mask_folder)
 
     images.sort(key=lambda f:int(re.sub('\D', '', f)))
