@@ -13,8 +13,9 @@ import subprocess
 # client = docker.from_env()
 line = ""
 mutex = QMutex()
-videopath = ""
-logpath = ""
+videopath = "video"
+logpath = "log"
+imagespath = "images"
 class DisplayFinalResults(QWidget):
 
   def __init__(self, mode):
@@ -140,7 +141,9 @@ class DisplayResults(QScrollArea):
 
         global videopath
         global logpath
-        self.p=subprocess.Popen("./"+self.mode+'.sh %s %s' % (videopath, logpath), shell=True)
+        global imagespath
+        print(imagespath)
+        self.p=subprocess.Popen("./"+self.mode+'.sh %s %s %s' % (videopath, logpath, imagespath), shell=True)
     
 
     def ShowIntermediateResults(self):
@@ -200,6 +203,9 @@ class MainWindow(QScrollArea):
         self.log_path = QPushButton('Log Path')
         self.log_path.clicked.connect(self.GetLogFile)
         self.main_layout.addWidget(self.log_path)
+        self.images_path = QPushButton('Images Path')
+        self.images_path.clicked.connect(self.GetImagesPath)
+        self.main_layout.addWidget(self.images_path)
 
         self.distance_modules = QHBoxLayout()
         self.distance_modules.addStretch(1)
@@ -323,9 +329,14 @@ class MainWindow(QScrollArea):
         global logpath
         response = QFileDialog.getOpenFileName(self, str("Select a log file"),
                                        os.getcwd(),
-                                       str("Logs (*.csv)"))
+                                       str("Logs (*.csv *.txt)"))
         logpath = response[0]
+    
+    def GetImagesPath(self):
 
+        global imagespath
+        response = str(QFileDialog.getExistingDirectory(self, "Select Directory"))
+        imagespath = response
 if __name__ == '__main__':
 
     app = QApplication(sys.argv)
