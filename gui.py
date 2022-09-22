@@ -140,7 +140,7 @@ class DisplayResults(QScrollArea):
 
         global videopath
         global logpath
-        self.p=subprocess.Popen("./"+self.mode+'.sh %s %s' %(videopath, logpath), shell=True)
+        self.p=subprocess.Popen("./"+self.mode+'.sh %s %s' % (videopath, logpath), shell=True)
     
 
     def ShowIntermediateResults(self):
@@ -316,15 +316,15 @@ class MainWindow(QScrollArea):
         global videopath
         response = QFileDialog.getOpenFileName(self, str("Select a video file"),
                                        os.getcwd(),
-                                       str("Videos (*.mp4 *.mov)"))
-        videopath = response
+                                       str("Videos (*.mp4 *.mov *.MP4 *.MOV *.avi *.AVI)"))
+        videopath = response[0]
     
     def GetLogFile(self):
         global logpath
         response = QFileDialog.getOpenFileName(self, str("Select a log file"),
                                        os.getcwd(),
                                        str("Logs (*.csv)"))
-        logpath = response
+        logpath = response[0]
 
 if __name__ == '__main__':
 

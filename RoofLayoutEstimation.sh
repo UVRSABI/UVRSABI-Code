@@ -5,30 +5,18 @@ cd RoofLayoutEstimation
 results_path=../RoofLayoutEstimationResults
 LOG=$results_path/log.txt
 exec > >(tee $LOG)
-
 echo "Extracting images from the video"
 rm -rf images
 python ../utils/VideoToImage.py --video $1 --savedir images
 echo "Done!"
 touch $results_path/out.log
 echo "Estimating the roof masks"
-cd LEDNet/save/logs
-
-# Check if the model weights have been downloaded before
-if test -f "model_best.pth"; then
-    echo "Model weights exist"
-else
-    echo "Model weights do not exist"
-    echo "Downloading model weights"
-    gdown 1E-FLi3byKxCcfKAGfqWAkp7Li4poKdKO
-    echo "Done!"
-fi
-cd ../../..
-cd LEDNet/test
+cd ../utils/LEDNet/test
 chmod 777 test.py
 rm -rf RoofMasks
-python test.py --datadir ../../images --resultdir ../../RoofMasks >> ../../$results_path/out.log
-cd ../../
+python test.py --datadir ../../../RoofLayoutEstimation/images --resultdir ../../../RoofLayoutEstimation/RoofMasks >> ../../$results_path/out.log
+cd ../../../RoofLayoutEstimation
+echo $(pwd)
 echo "Done!"
 
 echo "Displaying Roof Mask Results"
@@ -39,15 +27,9 @@ echo "Done!"
 echo "Estimating the NSE Masks"
 rm -rf ObjectMasks
 mkdir ObjectMasks
+cp utils/demo.py Detic/demo.py
+cp utils/predictor.py Detic/detic/predictor.py
 cd Detic
-if test -f "Detic_LCOCOI21k_CLIP_SwinB_896b32_4x_ft4x_max-size.pth"; then
-    echo "Model weights exist"
-else
-    echo "Model weights do not exist"
-    echo "Downloading model weights"
-    gdown 1RS2a1V-Gm2c4j7PbR9qg_xdzI1ohj6lz
-    echo "Done!"
-fi
 chmod 777 demo.py
 python demo.py --config-file configs/Detic_LCOCOI21k_CLIP_SwinB_896b32_4x_ft4x_max-size.yaml --input ../images/*.png --output ../ObjectMasks --vocabulary custom --custom_vocabulary solar_array,air_conditioner,vent,box,sink --confidence-threshold 0.5 --opts MODEL.WEIGHTS Detic_LCOCOI21k_CLIP_SwinB_896b32_4x_ft4x_max-size.pth >> ../$results_path/out.log
 cd ..
