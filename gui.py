@@ -1,8 +1,10 @@
+import cv2
+import PyQt5
 from PyQt5 import QtGui, QtCore, QtWidgets
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 import sys
-import cv2
+
 import os
 from PyQt5.QtCore import pyqtSignal, pyqtSlot, Qt,QObject, QRect, QThread, QMutex
 import glob
