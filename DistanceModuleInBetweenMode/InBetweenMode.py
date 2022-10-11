@@ -523,7 +523,11 @@ class AdjacentRoofDistance:
         
 if __name__ == "__main__":
     scale = 5.576
-    ply_file = "/home/kuromadoshi/IIITH/DistanceModuleDatasets/InBetweenView/DJI_0601/dense/0/fused.ply"
+    ply_file = "./fused.ply"
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-log',help="Log Path",default=True)
+    opt = parser.parse_args()
     obj = AdjacentRoofDistance(ply_file,scale)
     list=[]
     list = obj.EstimateDistanceAdjacentBuildings()

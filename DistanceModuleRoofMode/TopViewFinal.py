@@ -284,34 +284,33 @@ class AdjacentRoofDistance:
         listtrueposL = self.selectPoints(self.Leftclouds,m,yl,ya,offset,iLeft,"Left")
 
         # # Visualization and storing the distance b/w points on adjacent buildings
-        # linepoints = []
-        # lpts = np.array(self.Leftclouds[iLeft].points)
-        # rpts = np.array(self.Rightclouds[iRight].points)
+        linepoints = []
+        lpts = np.array(self.Leftclouds[iLeft].points)
+        rpts = np.array(self.Rightclouds[iRight].points)
 
-        # for i in range(4):
-        #     q1 = listtrueposL[i]
-        #     q2 = listtrueposR[i]
+        for i in range(4):
+            q1 = listtrueposL[i]
+            q2 = listtrueposR[i]
 
-        #     lpt = lpts[q1]
-        #     rpt = rpts[q2]
+            lpt = lpts[q1]
+            rpt = rpts[q2]
 
-        #     lpt = lpt.tolist()
-        #     rpt = rpt.tolist()
+            lpt = lpt.tolist()
+            rpt = rpt.tolist()
 
-        #     linepoints.append(lpt)
-        #     linepoints.append(rpt)
+            linepoints.append(lpt)
+            linepoints.append(rpt)
         
-        # lines=[[0,1], [2,3], [4,5], [6,7]]
-        # lineset=o3d.geometry.LineSet()
-        # lineset.points = o3d.utility.Vector3dVector(linepoints)
-        # lineset.lines = o3d.utility.Vector2iVector(lines)
-        # lineset.paint_uniform_color([1,0,0])
+        lines=[[0,1], [2,3], [4,5], [6,7]]
+        lineset=o3d.geometry.LineSet()
+        lineset.points = o3d.utility.Vector3dVector(linepoints)
+        lineset.lines = o3d.utility.Vector2iVector(lines)
+        lineset.paint_uniform_color([1,0,0])
         
-        # distlist=[]
-        # for i in range(4):
-        #     dist = self.find_dist(linepoints[(2*i)],linepoints[(2*i+1)])
-        #     distlist.append(dist*self.scale)
-        distlist = [13.32, 12.90, 12.78, 13.04]
+        distlist=[]
+        for i in range(4):
+            dist = self.find_dist(linepoints[(2*i)],linepoints[(2*i+1)])
+            distlist.append(dist*self.scale)
         o3d.visualization.draw_geometries([self.Rightclouds[iRight],self.Leftclouds[iLeft]],
                             zoom=0.8,
                             front=[-0.4999, -0.1659, -0.8499],
