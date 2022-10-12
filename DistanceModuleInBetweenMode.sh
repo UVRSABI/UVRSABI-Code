@@ -12,7 +12,7 @@ python3 ../utils/VideoToImage.py --video $1
 echo "Done!!"
 cd ..
 echo "COLMAP Started"
-DATASET_PATH=~/$CHOICE/ #can change it depending on where to keep the bash script.
+DATASET_PATH=./DistanceModuleInBetweeenMode #can change it depending on where to keep the bash script.
 colmap feature_extractor \
    --database_path $DATASET_PATH/database.db \
    --image_path $DATASET_PATH/images
