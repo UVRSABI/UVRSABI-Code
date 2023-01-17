@@ -1,4 +1,5 @@
 # UAV-based Visual Remote Sensing for Automated Building Inspection
+*Spotlight paper at the <b>Computer Vision for Civil and Infrastructure Engineering (CVCIE) Workshop, ECCV 2022</b>.
 ### Project: "Drone-based Infrastructure Assessment"
 This project aims at accurately detecting and estimating various parameters of a building by deploying an Unmanned Aerial Vehicle (UAV) based remote sensing system. It is a part of [IHub - Mobility Research](https://ihub-data.iiit.ac.in/mobility/) at [IIIT, Hyderabad](https://www.iiit.ac.in/).
 
